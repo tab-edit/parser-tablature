@@ -1,5 +1,5 @@
 {
-  "name": "tablature",
+  "name": "parser-tablature",
   "version": "1.0.0",
   "description": "lezer-based music tablature grammar",
   "main": "dist/index.cjs",
