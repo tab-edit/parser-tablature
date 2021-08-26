@@ -10,7 +10,10 @@
   },
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
-  "author": "Stanley Ihesiulo <stanihe1901@gmail.com>",
+  "author": {
+    "name": "Stanley Ihesiulo",
+    "email": "stanihe1901@gmail.com"
+  },
   "license": "ISC",
   "devDependencies": {
     "@lezer/generator": "^0.15.0",
