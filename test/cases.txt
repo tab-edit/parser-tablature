@@ -1,0 +1,41 @@
+# Measure
+
+E-----4h2p[5]----|----[4]----|x4    D|----4----|----4----|----4----| 
+
+E-----4----|----4----|    |----4----|----4----|----4----| 
+E-----4----|----4----|    e|----4----|----4----|----4----| 
+
+                
+
+==>
+
+Tablature(
+    Staves(
+        StaffLineGroup(
+            StaffLine(
+                MeasureLineName, MeasureLine(Hammer(Fret, Pull(Fret, Harmonic(Fret)))), MeasureLine(Harmonic(Fret)), Multiplier
+            ),
+            StaffLine(
+                MeasureLineName, MeasureLine(Fret), MeasureLine(Fret), MeasureLine(Fret)
+            )
+        )
+    ), 
+    Staves(
+        StaffLineGroup(
+            StaffLine(
+                MeasureLineName, MeasureLine(Fret), MeasureLine(Fret)
+            ),
+            StaffLine(
+                MeasureLine(Fret), MeasureLine(Fret), MeasureLine(Fret)
+            )
+        ),
+        StaffLineGroup(
+            StaffLine(
+                MeasureLineName, MeasureLine(Fret), MeasureLine(Fret)
+            ),
+            StaffLine(
+                MeasureLineName, MeasureLine(Fret), MeasureLine(Fret), MeasureLine(Fret)
+            )
+        )
+    )
+)

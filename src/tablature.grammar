@@ -1,0 +1,71 @@
+@precedence { aggregate @left }
+
+@top Tablature {
+    Staves (newlineEmpty (newline|newlineEmpty)* Staves)* eof
+}
+
+Staves { 
+    StaffLineGroup !aggregate (newline StaffLineGroup)*
+}
+
+StaffLineGroup { 
+    StaffLine* (incomingNewline|incomingEOF)
+}
+
+StaffLine { 
+    ( 
+        (MeasureLineName (delim|dash)) | 
+        delim
+    )
+    MeasureLine+ 
+    (Multiplier | stafflineSep)
+}
+
+MeasureLine {
+    !aggregate (measureComponent|dash)+ delim
+}
+
+// -----Measure components like fret, e.t.c.---------------
+measureComponent { stringComponent }
+stringComponent {
+    Hammer |
+    Pull |
+    Slide |
+    unitStringComponent
+}
+Hammer[@isGroup=MeasureComponentGroup] { unitStringComponent hammerSym stringComponent }
+Pull[@isGroup=MeasureComponentGroup] { unitStringComponent pullSym stringComponent }
+Slide[@isGroup=MeasureComponentGroup] { unitStringComponent slideSym stringComponent }
+unitStringComponent {
+    Fret | Harmonic | Grace
+}
+
+Fret[@isGroup=MeasureComponent] { fretNum }
+Harmonic[@isGroup=MeasureComponent] { "[" Fret "]" }
+Grace[@isGroup=MeasureComponent] { graceSym !aggregate Fret }
+// ---------------------------------------------------------
+
+@skip { space | Comment }
+@tokens {
+    space { $[ \t] }
+    dash { "-" }
+    delimChar { $[|:] }
+    num { $[0-9] }
+    delim { delimChar delimChar? }
+
+    Comment { "#" ![\n\r]* }
+    
+    fretNum { num num? }
+    graceSym { $[gG] }
+
+    slideSym { $[s/\\] }
+    hammerSym { $[hH] }
+    pullSym { $[pP] }
+
+    Multiplier { $[xX] num }
+    MeasureLineName { "hi" | $[eE] | $[bB] | $[gG] | $[dD] | $[aA] }
+}
+
+@external tokens newlines from "./tokens" { newline, newlineEmpty, eof }
+@external tokens lookaheads from "./tokens" { incomingNewline, incomingEOF }
+@external tokens stafflineSeparator from "./tokens" { stafflineSep }
