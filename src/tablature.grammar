@@ -12,6 +12,7 @@ StaffLineGroup {
     StaffLine* (incomingNewline|incomingEOF)
 }
 
+
 StaffLine { 
     ( 
         (MeasureLineName (delim|dash)) | 
@@ -22,28 +23,37 @@ StaffLine {
 }
 
 MeasureLine {
-    !aggregate (measureComponent|dash)+ delim
+    (dash+ delim) |
+    (dash* measureComponent+ delim)
 }
 
 // -----Measure components like fret, e.t.c.---------------
 measureComponent { stringComponent }
+// measureComponentGroup { stringComponentGroup }
 stringComponent {
     Hammer |
     Pull |
     Slide |
-    unitStringComponent
+    unitStringComponent dash*
 }
-Hammer[@isGroup=MeasureComponentGroup] { unitStringComponent hammerSym stringComponent }
-Pull[@isGroup=MeasureComponentGroup] { unitStringComponent pullSym stringComponent }
-Slide[@isGroup=MeasureComponentGroup] { unitStringComponent slideSym stringComponent }
+
+Hammer[@isGroup=MeasureComponentGroup] { measureComponentConnector<hammerSym> }
+Pull[@isGroup=MeasureComponentGroup] { measureComponentConnector<pullSym> }
+Slide[@isGroup=MeasureComponentGroup] { measureComponentConnector<slideSym> }
+measureComponentConnector<connector> {
+    unitStringComponent dash*
+    connector
+    stringComponent
+}
+
 unitStringComponent {
     Fret | Harmonic | Grace
 }
-
 Fret[@isGroup=MeasureComponent] { fretNum }
 Harmonic[@isGroup=MeasureComponent] { "[" Fret "]" }
-Grace[@isGroup=MeasureComponent] { graceSym !aggregate Fret }
+Grace[@isGroup=MeasureComponent] { graceSym Fret }
 // ---------------------------------------------------------
+connectorSymb[@export] { slideSym|hammerSym|pullSym }
 
 @skip { space | Comment }
 @tokens {
@@ -56,16 +66,17 @@ Grace[@isGroup=MeasureComponent] { graceSym !aggregate Fret }
     Comment { "#" ![\n\r]* }
     
     fretNum { num num? }
-    graceSym { $[gG] }
 
     slideSym { $[s/\\] }
     hammerSym { $[hH] }
     pullSym { $[pP] }
 
+
     Multiplier { $[xX] num }
-    MeasureLineName { "hi" | $[eE] | $[bB] | $[gG] | $[dD] | $[aA] }
+    MeasureLineName { $[eE] | $[bB] | $[gG] | $[dD] | $[aA] }
 }
 
 @external tokens newlines from "./tokens" { newline, newlineEmpty, eof }
-@external tokens lookaheads from "./tokens" { incomingNewline, incomingEOF }
 @external tokens stafflineSeparator from "./tokens" { stafflineSep }
+@external tokens lookaheads from "./tokens" { incomingNewline, incomingEOF }
+@external tokens measureComponentExternTokens from "./tokens" { graceSym, incomingComponentConnector }

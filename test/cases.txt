@@ -1,10 +1,11 @@
 # Measure
 
-E-----4h2p[5]----|----[4]----|x4    D|----4----|----4----|----4----| 
-
-E-----4----|----4----|    |----4----|----4----|----4----| 
-E-----4----|----4----|    e|----4----|----4----|----4----| 
-
+E|---------------------------|-15p12-10p9-12p10-6p5-8p6-----|   E|--------------------------|------------------------------|
+B|---------------------------|--------------------------8-5-|   B|--------------------------|------------------------------|
+G|---------------------------|------------------------------|   G|--------------------------|------------------------------|
+D|--[7]----------------------|------------------------------|   D|------------------2---5---|-8---7--h14-14-----------12---|
+A|--[7]----------------------|------------------------------|   A|--0-----------4-----------|------------------------------|
+E|--[7]----------------------|------------------------------|   E|--------------------------|------------------------------|
                 
 
 ==>
@@ -13,29 +14,18 @@ Tablature(
     Staves(
         StaffLineGroup(
             StaffLine(
-                MeasureLineName, MeasureLine(Hammer(Fret, Pull(Fret, Harmonic(Fret)))), MeasureLine(Harmonic(Fret)), Multiplier
-            ),
-            StaffLine(
-                MeasureLineName, MeasureLine(Fret), MeasureLine(Fret), MeasureLine(Fret)
-            )
-        )
-    ), 
-    Staves(
-        StaffLineGroup(
-            StaffLine(
-                MeasureLineName, MeasureLine(Fret), MeasureLine(Fret)
-            ),
-            StaffLine(
-                MeasureLine(Fret), MeasureLine(Fret), MeasureLine(Fret)
-            )
+                MeasureLineName, MeasureLine, 
+                MeasureLine(Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret))
+            ), 
+            StaffLine(MeasureLineName, MeasureLine, MeasureLine)
         ),
         StaffLineGroup(
-            StaffLine(
-                MeasureLineName, MeasureLine(Fret), MeasureLine(Fret)
-            ),
-            StaffLine(
-                MeasureLineName, MeasureLine(Fret), MeasureLine(Fret), MeasureLine(Fret)
-            )
-        )
+            StaffLine(MeasureLineName, MeasureLine, MeasureLine(Fret, Fret)), 
+            StaffLine(MeasureLineName, MeasureLine, MeasureLine)
+        ),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine, MeasureLine), StaffLine(MeasureLineName, MeasureLine, MeasureLine)),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine(Fret, Fret), MeasureLine(Fret, Hammer(Fret, Fret), Fret, Fret))),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine(Fret, Fret), MeasureLine)),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine, MeasureLine))
     )
 )
