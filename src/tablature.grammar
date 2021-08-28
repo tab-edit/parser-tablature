@@ -1,7 +1,7 @@
 @precedence { aggregate @left }
 
 @top Tablature {
-    Staves (newlineEmpty (newline|newlineEmpty)* Staves)* eof
+    (Dash|newline)+//Staves (newlineEmpty (newline|newlineEmpty)* Staves)* eof
 }
 
 Staves { 
@@ -54,7 +54,7 @@ Harmonic[@isGroup=MeasureComponent] { "[" Fret "]" }
 Grace[@isGroup=MeasureComponent] { graceSym Fret }
 // ---------------------------------------------------------
 connectorSymb[@export] { slideSym|hammerSym|pullSym }
-
+Dash{dash}
 @skip { space | Comment }
 @tokens {
     space { $[ \t] }
