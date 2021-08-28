@@ -1,7 +1,7 @@
 @precedence { aggregate @left }
 
 @top Tablature {
-    (Dash|newline)+//Staves (newlineEmpty (newline|newlineEmpty)* Staves)* eof
+    Staves (newlineEmpty (newline|newlineEmpty)* Staves)* eof
 }
 
 Staves { 
