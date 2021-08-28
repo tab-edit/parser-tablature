@@ -2,7 +2,28 @@
 
 E|---------------------------|-15p12-10p9-12p10-6p5-8p6-----|   E|--------------------------|------------------------------|
 B|---------------------------|--------------------------8-5-|   B|--------------------------|------------------------------|
-G|---------------------------|------------------------------|   G|--------------------------|------------------------------|
+G|---------------------------|----g2------g7h3--------------|   G|--------------------------|------------------------------|
+D|--[7]----------------------|------------------------------|   D|------------------2---5---|-8---7--h14-14-----------12---|
+A|--[7]----------------------|------------------------------|   A|--0-----------4-----------|------------------------------|
+E|--[7]----------------------|------------------------------|   E|--------------------------|------------------------------|
+                
+E|---------------------------|-15p12-10p9-12p10-6p5-8p6-----|   E|--------------------------|------------------------------|
+B|---------------------------|--------------------------8-5-|   B|--------------------------|------------------------------|
+G|---------------------------|----g2------g7h3--------------|   G|--------------------------|------------------------------|
+D|--[7]----------------------|------------------------------|   D|------------------2---5---|-8---7--h14-14-----------12---|
+A|--[7]----------------------|------------------------------|   A|--0-----------4-----------|------------------------------|
+E|--[7]----------------------|------------------------------|   E|--------------------------|------------------------------|
+
+E|---------------------------|-15p12-10p9-12p10-6p5-8p6-----|   E|--------------------------|------------------------------|
+B|---------------------------|--------------------------8-5-|   B|--------------------------|------------------------------|
+G|---------------------------|----g2------g7h3--------------|   G|--------------------------|------------------------------|
+D|--[7]----------------------|------------------------------|   D|------------------2---5---|-8---7--h14-14-----------12---|
+A|--[7]----------------------|------------------------------|   A|--0-----------4-----------|------------------------------|
+E|--[7]----------------------|------------------------------|   E|--------------------------|------------------------------|
+                
+E|---------------------------|-15p12-10p9-12p10-6p5-8p6-----|   E|--------------------------|------------------------------|
+B|---------------------------|--------------------------8-5-|   B|--------------------------|------------------------------|
+G|---------------------------|----g2------g7h3--------------|   G|--------------------------|------------------------------|
 D|--[7]----------------------|------------------------------|   D|------------------2---5---|-8---7--h14-14-----------12---|
 A|--[7]----------------------|------------------------------|   A|--0-----------4-----------|------------------------------|
 E|--[7]----------------------|------------------------------|   E|--------------------------|------------------------------|
@@ -23,9 +44,61 @@ Tablature(
             StaffLine(MeasureLineName, MeasureLine, MeasureLine(Fret, Fret)), 
             StaffLine(MeasureLineName, MeasureLine, MeasureLine)
         ),
-        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine, MeasureLine), StaffLine(MeasureLineName, MeasureLine, MeasureLine)),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine, MeasureLine(Grace(Fret), Hammer(Grace(Fret), Fret))), StaffLine(MeasureLineName, MeasureLine, MeasureLine)),
         StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine(Fret, Fret), MeasureLine(Fret, Hammer(Fret, Fret), Fret, Fret))),
         StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine(Fret, Fret), MeasureLine)),
         StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine, MeasureLine))
-    )
+    ),
+    Staves(
+        StaffLineGroup(
+            StaffLine(
+                MeasureLineName, MeasureLine, 
+                MeasureLine(Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret))
+            ), 
+            StaffLine(MeasureLineName, MeasureLine, MeasureLine)
+        ),
+        StaffLineGroup(
+            StaffLine(MeasureLineName, MeasureLine, MeasureLine(Fret, Fret)), 
+            StaffLine(MeasureLineName, MeasureLine, MeasureLine)
+        ),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine, MeasureLine(Grace(Fret), Hammer(Grace(Fret), Fret))), StaffLine(MeasureLineName, MeasureLine, MeasureLine)),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine(Fret, Fret), MeasureLine(Fret, Hammer(Fret, Fret), Fret, Fret))),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine(Fret, Fret), MeasureLine)),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine, MeasureLine))
+    ),
+    Staves(
+        StaffLineGroup(
+            StaffLine(
+                MeasureLineName, MeasureLine, 
+                MeasureLine(Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret))
+            ), 
+            StaffLine(MeasureLineName, MeasureLine, MeasureLine)
+        ),
+        StaffLineGroup(
+            StaffLine(MeasureLineName, MeasureLine, MeasureLine(Fret, Fret)), 
+            StaffLine(MeasureLineName, MeasureLine, MeasureLine)
+        ),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine, MeasureLine(Grace(Fret), Hammer(Grace(Fret), Fret))), StaffLine(MeasureLineName, MeasureLine, MeasureLine)),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine(Fret, Fret), MeasureLine(Fret, Hammer(Fret, Fret), Fret, Fret))),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine(Fret, Fret), MeasureLine)),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine, MeasureLine))
+    ),
+    Staves(
+        StaffLineGroup(
+            StaffLine(
+                MeasureLineName, MeasureLine, 
+                MeasureLine(Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret))
+            ), 
+            StaffLine(MeasureLineName, MeasureLine, MeasureLine)
+        ),
+        StaffLineGroup(
+            StaffLine(MeasureLineName, MeasureLine, MeasureLine(Fret, Fret)), 
+            StaffLine(MeasureLineName, MeasureLine, MeasureLine)
+        ),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine, MeasureLine(Grace(Fret), Hammer(Grace(Fret), Fret))), StaffLine(MeasureLineName, MeasureLine, MeasureLine)),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine(Fret, Fret), MeasureLine(Fret, Hammer(Fret, Fret), Fret, Fret))),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine(Fret, Fret), MeasureLine)),
+        StaffLineGroup(StaffLine(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), StaffLine(MeasureLineName, MeasureLine, MeasureLine))
+    ),
+    
 )

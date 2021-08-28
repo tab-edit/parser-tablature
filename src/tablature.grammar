@@ -1,17 +1,18 @@
 @precedence { aggregate @left }
 
 @top Tablature {
-    Staves (newlineEmpty (newline|newlineEmpty)* Staves)* eof
+    (
+        ( Staves (newline|eof) ) | newline
+    )+
 }
 
 Staves { 
-    StaffLineGroup !aggregate (newline StaffLineGroup)*
+    StaffLineGroup+
 }
 
 StaffLineGroup { 
-    StaffLine* (incomingNewline|incomingEOF)
+    StaffLine+ (newline|eof)
 }
-
 
 StaffLine { 
     ( 
@@ -19,7 +20,7 @@ StaffLine {
         delim
     )
     MeasureLine+ 
-    (Multiplier | stafflineSep)
+    Multiplier?
 }
 
 MeasureLine {
@@ -62,6 +63,7 @@ Dash{dash}
     delimChar { $[|:] }
     num { $[0-9] }
     delim { delimChar delimChar? }
+    newline { "\n" | "\r\n" }
 
     Comment { "#" ![\n\r]* }
     
@@ -76,7 +78,5 @@ Dash{dash}
     MeasureLineName { $[eE] | $[bB] | $[gG] | $[dD] | $[aA] }
 }
 
-@external tokens newlines from "./tokens" { newline, newlineEmpty, eof }
-@external tokens stafflineSeparator from "./tokens" { stafflineSep }
-@external tokens lookaheads from "./tokens" { incomingNewline, incomingEOF }
-@external tokens measureComponentExternTokens from "./tokens" { graceSym, incomingComponentConnector }
+@external tokens endOfFile from "./tokens" { eof }
+@external tokens measureComponentExternTokens from "./tokens" { graceSym }
