@@ -7,11 +7,11 @@
 }
 
 Staves { 
-    StaffLineGroup+
+    (StaffLineGroup (newline|eof))+
 }
 
 StaffLineGroup { 
-    StaffLine+ (newline|eof)
+    StaffLine+
 }
 
 StaffLine { 
