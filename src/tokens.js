@@ -1,5 +1,5 @@
 import { ExternalTokenizer } from "@lezer/lr";
-import { eof, graceSym } from "./parser.terms.js";
+import { eof, graceSym, number } from "./parser.terms.js";
 
 const g = 103,
   G = 71;
@@ -14,6 +14,15 @@ export const measureComponentExternTokens = new ExternalTokenizer((input) => {
     if (isNum(input.next)) input.acceptToken(graceSym);
   }
 }, {fallback: true});
+
+export const numberToken = new ExternalTokenizer((input) => {
+  //only allows for two digit numbers
+  if (isNum(input.next)) {
+    input.advance();
+    if (isNum(input.next)) input.advance();
+    input.acceptToken(number);
+  }
+}, {fallback: true})
 
 function isNum(charCode) {
   return charCode >= 48 && charCode <= 57;

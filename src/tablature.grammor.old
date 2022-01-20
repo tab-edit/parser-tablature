@@ -1,0 +1,82 @@
+@precedence { aggregate @left }
+
+@top Tablature {
+    (
+        ( Staves (newline|eof) ) | newline
+    )+
+}
+
+Staves { 
+    (StaffLineGroup (newline|eof))+
+}
+
+StaffLineGroup { 
+    StaffLine+
+}
+
+StaffLine { 
+    ( 
+        (MeasureLineName (delim|dash)) | 
+        delim
+    )
+    MeasureLine+ 
+    Multiplier?
+}
+
+MeasureLine {
+    (dash+ delim) |
+    (dash* measureComponent+ delim)
+}
+
+// -----Measure components like fret, e.t.c.---------------
+measureComponent { stringComponent }
+// measureComponentGroup { stringComponentGroup }
+stringComponent {
+    Hammer |
+    Pull |
+    Slide |
+    unitStringComponent dash*
+}
+
+Hammer[@isGroup=MeasureComponentGroup] { measureComponentConnector<hammerSym> }
+Pull[@isGroup=MeasureComponentGroup] { measureComponentConnector<pullSym> }
+Slide[@isGroup=MeasureComponentGroup] { measureComponentConnector<slideSym> }
+measureComponentConnector<connector> {
+    unitStringComponent dash*
+    connector
+    stringComponent
+}
+
+unitStringComponent {
+    Fret | Harmonic | Grace
+}
+Fret[@isGroup=MeasureComponent] { fretNum }
+Harmonic[@isGroup=MeasureComponent] { "[" Fret "]" }
+Grace[@isGroup=MeasureComponent] { graceSym Fret }
+// ---------------------------------------------------------
+connectorSymb[@export] { slideSym|hammerSym|pullSym }
+Dash{dash}
+@skip { space | Comment }
+@tokens {
+    space { $[ \t] }
+    dash { "-" }
+    delimChar { $[|:] }
+    num { $[0-9] }
+    delim { delimChar delimChar? }
+    newline { "\n" | "\r\n" }
+
+    Comment { "#" ![\n\r]* }
+    
+    fretNum { num num? }
+
+    slideSym { $[s/\\] }
+    hammerSym { $[hH] }
+    pullSym { $[pP] }
+
+
+    Multiplier { $[xX] num }
+    MeasureLineName { $[eE] | $[bB] | $[gG] | $[dD] | $[aA] }
+}
+
+@external tokens endOfFile from "./tokens" { eof }
+@external tokens measureComponentExternTokens from "./tokens" { graceSym }
