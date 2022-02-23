@@ -32,7 +32,7 @@ TimingLine {
 }
 
 TabSection {
-    (RepeatLine newline)?
+    // (RepeatLine newline)?
     (TimeSigLine newline)?
     (TabSectionLine (newline|eof))+
     (TimingLine (newline|eof))?
@@ -42,6 +42,9 @@ TabSectionLine {
     TabString+
 }
 
+// NamelessMeasureStart { delim }
+// TODO: make TabString start with (MeasureLineName|NamelessMeasureStart). this introduces a lot of bugs you have to deal with tho (you have to think of how you separate two TabStrings on the same line. it may involve you inverting the skip sets - i.e. skip spaces only inside of MeasureLines and between TabSections. this is probably a better design anyway, so i will also include it as its own TODO)
+// TODO: invert the skip sets - i.e. skip spaces only inside of MeasureLines and between TabSections. the rest will strictly obey no spacing. this is better design than what we currently have
 TabString { 
     MeasureLineName
     MeasureLine+

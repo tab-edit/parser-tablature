@@ -1,5 +1,4 @@
 # Measure
-|-----------repeat x 5 ------ ------------|
 4/4
 E|---------------------------|-15p12-10p9-12p10-6p5-8p6-----||           E|--------------------------|------------------------------|
 B|---------------------------|--------------------------8-5-||           B|--------------------------|------------------------------|
@@ -13,7 +12,6 @@ E|--[7]----------------------|------------------------------||           E|-----
 
 Tablature(
     TabSection(
-        RepeatLine(Repeat(Multiplier)),
         TimeSigLine(TimeSignature),
         TabSectionLine(
             TabString(MeasureLineName, MeasureLine, MeasureLine(Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret))), 
