@@ -43,15 +43,13 @@ TabSectionLine {
 }
 
 TabString { 
-    ( 
-        (MeasureLineName (delim|dash)) | 
-        delim
-    )
+    MeasureLineName
     MeasureLine+
     Multiplier?
 }
 
 MeasureLine {
+    (delim|dash) !aggregate
     (dash+ measureLineEnd) |
     (dash* measureComponent+ measureLineEnd)
 }
