@@ -2,7 +2,7 @@
 
 @top Tablature {
     (
-        ( TabSection (newline|eof) ) | newline
+        ( TabSegment (newline|eof) ) | newline
     )+
 }
 
@@ -31,28 +31,30 @@ TimingLine {
     "XQ" "e."+
 }
 
-TabSection {
+TabSegment {
     // (RepeatLine newline)?
     (TimeSigLine newline)?
-    (TabSectionLine (newline|eof))+
+    (TabSegmentLine (newline|eof))+
     (TimingLine (newline|eof))?
 }
 
-TabSectionLine { 
+TabSegmentLine { 
     TabString+
 }
 
 // NamelessMeasureStart { delim }
 // TODO: make TabString start with (MeasureLineName|NamelessMeasureStart). this introduces a lot of bugs you have to deal with tho (you have to think of how you separate two TabStrings on the same line. it may involve you inverting the skip sets - i.e. skip spaces only inside of MeasureLines and between TabSections. this is probably a better design anyway, so i will also include it as its own TODO)
 // TODO: invert the skip sets - i.e. skip spaces only inside of MeasureLines and between TabSections. the rest will strictly obey no spacing. this is better design than what we currently have
-TabString { 
-    MeasureLineName
+// TODO: capture the starting delimiter of a measureline within the measureline itself by doing: (delim|dash) !aggregate in the MeasureLine rule
+TabString {
+    ( 
+        (MeasureLineName (delim|dash)) | 
+        delim
+    )
     MeasureLine+
     Multiplier?
 }
-
 MeasureLine {
-    (delim|dash) !aggregate
     (dash+ measureLineEnd) |
     (dash* measureComponent+ measureLineEnd)
 }
@@ -60,6 +62,7 @@ measureLineEnd {
     inlineRepeat | delim
 }
 
+//TODO: create an external token called InsertMeasureLineName so that we can know where missing measure line names are and make linting rules easily based on that
 
 // -----Measure components like fret, e.t.c.---------------
 measureComponent { stringComponent } // in the future, "stringComponent | percussionComponent"
@@ -103,7 +106,6 @@ Tab { "\t" }
     pullSym { $[pP] }
     
     x { $[xX] }
-    
     MeasureLineName { $[eE] | $[bB] | $[gG] | $[dD] | $[aA] }
 }
 

@@ -8,22 +8,19 @@ export const endOfFile = new ExternalTokenizer((input) => {
   if (input.next < 0) input.acceptToken(eof);
 });
 
-export const measureComponentExternTokens = new ExternalTokenizer((input) => {
+export const measureComponentExternTokens = new ExternalTokenizer((input, stack) => {
   if (input.next == g || input.next == G) {
     input.advance();
-    if (isNum(input.next)) input.acceptToken(graceSym);
+    if (isDigit(input.next) && stack.canShift(graceSym)) input.acceptToken(graceSym);
   }
 }, {fallback: true});
 
-export const numberToken = new ExternalTokenizer((input) => {
-  //only allows for two digit numbers
-  if (isNum(input.next)) {
-    input.advance();
-    if (isNum(input.next)) input.advance();
-    input.acceptToken(number);
-  }
+export const numberToken = new ExternalTokenizer((input, stack) => {
+  let hasDigit = isDigit(input.next);
+  while (isDigit(input.next)) input.advance();
+  if (hasDigit && stack.canShift(number)) input.acceptToken(number);
 }, {fallback: true})
 
-function isNum(charCode) {
+function isDigit(charCode) {
   return charCode >= 48 && charCode <= 57;
 }

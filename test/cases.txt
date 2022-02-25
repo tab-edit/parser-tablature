@@ -11,29 +11,29 @@ E|--[7]----------------------|------------------------------||           E|-----
 ==>
 
 Tablature(
-    TabSection(
+    TabSegment(
         TimeSigLine(TimeSignature),
-        TabSectionLine(
+        TabSegmentLine(
             TabString(MeasureLineName, MeasureLine, MeasureLine(Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret))), 
             TabString(MeasureLineName, MeasureLine, MeasureLine)
         ),
-        TabSectionLine(
+        TabSegmentLine(
             TabString(MeasureLineName, MeasureLine, MeasureLine(Fret, Fret)), 
             TabString(MeasureLineName, MeasureLine, MeasureLine)
         ),
-        TabSectionLine(
+        TabSegmentLine(
             TabString(MeasureLineName, MeasureLine, MeasureLine(Grace(Fret), Hammer(Grace(Fret), Fret)), Multiplier), 
             TabString(MeasureLineName, MeasureLine, MeasureLine)
         ),
-        TabSectionLine(
+        TabSegmentLine(
             TabString(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), 
             TabString(MeasureLineName, MeasureLine(Fret, Fret), MeasureLine(Fret, Hammer(Fret, Fret), Fret, Fret))
         ),
-        TabSectionLine(
+        TabSegmentLine(
             TabString(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), 
             TabString(MeasureLineName, MeasureLine(Fret, Fret), MeasureLine)
         ),
-        TabSectionLine(
+        TabSegmentLine(
             TabString(MeasureLineName, MeasureLine(Harmonic(Fret)), MeasureLine), 
             TabString(MeasureLineName, MeasureLine, MeasureLine)
         )
