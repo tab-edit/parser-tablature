@@ -7,10 +7,10 @@
 }
 
 
-RepeatLine {
+repeatLine {
     Repeat+
 }
-Repeat {
+Repeat[@isGroup=Modifier] {
     delim dash+
     repeatText
     dash+ delim
@@ -19,23 +19,26 @@ Repeat {
     repeatText {
         "repeat" " "+ Multiplier
     }
-    TimeSignature {
+    TimeSignature[@isGroup=Modifier] {
         number "/" number
     }
 }
 
-TimeSigLine {
+timeSigLine {
     TimeSignature+
 }
+
+// TODO: do not make TimingLine a rule. instead make a Timing rule for each type of timing so that only the actual modifier tokens are exposed.
+// also when you make the timing modifier rules, make sure that you add [@isGroup=Modifier]
 TimingLine {
     "XQ" "e."+
 }
 
 TabSegment {
-    // (RepeatLine newline)?
-    (TimeSigLine newline)?
+    // (repeatLine newline)?
+    (timeSigLine newline)?
     (TabSegmentLine (newline|eof))+
-    (TimingLine (newline|eof))?
+    // (TimingLine (newline|eof))?
 }
 
 TabSegmentLine { 
@@ -43,7 +46,7 @@ TabSegmentLine {
 }
 
 // NamelessMeasureStart { delim }
-// TODO: make TabString start with (MeasureLineName|NamelessMeasureStart). this introduces a lot of bugs you have to deal with tho (you have to think of how you separate two TabStrings on the same line. it may involve you inverting the skip sets - i.e. skip spaces only inside of MeasureLines and between TabSections. this is probably a better design anyway, so i will also include it as its own TODO)
+// TODO: (update: this might not be good design. it might be better to just leave no measure line name as blank) make TabString start with (MeasureLineName|NamelessMeasureStart). this introduces a lot of bugs you have to deal with tho (you have to think of how you separate two TabStrings on the same line. it may involve you inverting the skip sets - i.e. skip spaces only inside of MeasureLines and between TabSections. this is probably a better design anyway, so i will also include it as its own TODO)
 // TODO: invert the skip sets - i.e. skip spaces only inside of MeasureLines and between TabSections. the rest will strictly obey no spacing. this is better design than what we currently have
 // TODO: capture the starting delimiter of a measureline within the measureline itself by doing: (delim|dash) !aggregate in the MeasureLine rule
 TabString {

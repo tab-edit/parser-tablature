@@ -12,7 +12,7 @@ E|--[7]----------------------|------------------------------||           E|-----
 
 Tablature(
     TabSegment(
-        TimeSigLine(TimeSignature),
+        TimeSignature,
         TabSegmentLine(
             TabString(MeasureLineName, MeasureLine, MeasureLine(Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret), Pull(Fret, Fret))), 
             TabString(MeasureLineName, MeasureLine, MeasureLine)
