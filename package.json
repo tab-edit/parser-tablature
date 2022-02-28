@@ -22,7 +22,6 @@
     "rollup": "^2.52.2"
   },
   "dependencies": {
-    "@lezer/common": "^0.15.11",
     "@lezer/lr": "^0.15.0"
   },
   "scripts": {
