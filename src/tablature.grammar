@@ -76,16 +76,19 @@ stringComponent {
     atomicStringComponent dash*
 }
 
-Fret[@isGroup=MeasureComponent] { number }
-Harmonic[@isGroup=MeasureComponent] { "[" Fret "]" }
-Grace[@isGroup=MeasureComponent] { graceSym Fret }
+Fret[@isGroup=Note] { number }
+Harmonic[@isGroup=NoteDecorator] { "[" Fret "]" }
+Grace[@isGroup=NoteDecorator] { graceSym Fret }
 atomicStringComponent {
     Fret | Harmonic | Grace
 }
 
-Hammer[@isGroup=NoteConnector] { measureComponentConnector<hammerSym> }
-Pull[@isGroup=NoteConnector] { measureComponentConnector<pullSym> }
-Slide[@isGroup=NoteConnector] { measureComponentConnector<slideSym> }
+hammerSymbol[@isGroup=ConnectorSymbol] { hammerSym }
+pullSymbol[@isGroup=ConnectorSymbol] { pullSym }
+slideSymbol[@isGroup=ConnectorSymbol] { slideSym }
+Hammer[@isGroup=NoteConnector] { measureComponentConnector<hammerSymbol> }
+Pull[@isGroup=NoteConnector] { measureComponentConnector<pullSymbol> }
+Slide[@isGroup=NoteConnector] { measureComponentConnector<slideSymbol> }
 measureComponentConnector<connector> {
     atomicStringComponent dash*
     connector

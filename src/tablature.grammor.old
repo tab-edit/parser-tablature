@@ -2,81 +2,125 @@
 
 @top Tablature {
     (
-        ( Staves (newline|eof) ) | newline
+        ( TabSegment (newline|eof) ) | newline
     )+
 }
 
-Staves { 
-    (StaffLineGroup (newline|eof))+
+
+repeatLine {
+    Repeat+
 }
 
-StaffLineGroup { 
-    StaffLine+
+TimeSignature[@isGroup=Modifier] {
+    number "/" number
 }
 
-StaffLine { 
+MeasureLineName {
+    letter (digit | letter)? (digit | letter)?
+}
+
+@skip {" " | Tab} {
+    Repeat[@isGroup=Modifier] {
+        delim dash+
+        "repeat" Multiplier
+        dash+ delim
+    }
+    // TODO: do not make TimingLine a rule. instead make a Timing rule for each type of timing so that only the actual modifier tokens are exposed.
+    // also when you make the timing modifier rules, make sure that you add [@isGroup=Modifier]
+    TimingLine {
+        "XQ" "e."+
+    }
+}
+
+timeSigLine {
+    TimeSignature+
+}
+
+TabSegment {
+    // (repeatLine newline)?
+    (timeSigLine newline)?
+    (TabSegmentLine (newline|eof))+
+    // (TimingLine (newline|eof))?
+}
+
+TabSegmentLine { 
+    TabString+
+}
+
+// NamelessMeasureStart { delim }
+// TODO: (update: this might not be good design. it might be better to just leave no measure line name as blank) make TabString start with (MeasureLineName|NamelessMeasureStart). this introduces a lot of bugs you have to deal with tho (you have to think of how you separate two TabStrings on the same line. it may involve you inverting the skip sets - i.e. skip spaces only inside of MeasureLines and between TabSections. this is probably a better design anyway, so i will also include it as its own TODO)
+// TODO: invert the skip sets - i.e. skip spaces only inside of MeasureLines and between TabSections. the rest will strictly obey no spacing. this is better design than what we currently have
+// TODO: capture the starting delimiter of a measureline within the measureline itself by doing: (delim|dash) !aggregate in the MeasureLine rule
+TabString {
     ( 
         (MeasureLineName (delim|dash)) | 
         delim
     )
-    MeasureLine+ 
+    MeasureLine+
     Multiplier?
 }
-
-MeasureLine {
-    (dash+ delim) |
-    (dash* measureComponent+ delim)
+@skip {" " | Tab} {
+    MeasureLine {
+        (dash+ measureLineEnd) |
+        (dash* measureComponent+ measureLineEnd)
+    }
 }
+measureLineEnd {
+    inlineRepeat | delim
+}
+
+//TODO: create an external token called InsertMeasureLineName so that we can know where missing measure line names are and make linting rules easily based on that
 
 // -----Measure components like fret, e.t.c.---------------
-measureComponent { stringComponent }
-// measureComponentGroup { stringComponentGroup }
-stringComponent {
-    Hammer |
-    Pull |
-    Slide |
-    unitStringComponent dash*
+measureComponent { stringComponent } // in the future, "stringComponent | percussionComponent"
+@skip { " " | Tab } {
+    stringComponent {
+        Hammer |
+        Pull |
+        Slide |
+        atomicStringComponent dash*
+    }
 }
 
-Hammer[@isGroup=MeasureComponentGroup] { measureComponentConnector<hammerSym> }
-Pull[@isGroup=MeasureComponentGroup] { measureComponentConnector<pullSym> }
-Slide[@isGroup=MeasureComponentGroup] { measureComponentConnector<slideSym> }
-measureComponentConnector<connector> {
-    unitStringComponent dash*
-    connector
-    stringComponent
-}
-
-unitStringComponent {
-    Fret | Harmonic | Grace
-}
-Fret[@isGroup=MeasureComponent] { fretNum }
+Fret[@isGroup=Note] { number }
 Harmonic[@isGroup=MeasureComponent] { "[" Fret "]" }
 Grace[@isGroup=MeasureComponent] { graceSym Fret }
+atomicStringComponent {
+    Fret | Harmonic | Grace
+}
+
+Hammer[@isGroup=NoteConnector] { measureComponentConnector<hammerSym> }
+Pull[@isGroup=NoteConnector] { measureComponentConnector<pullSym> }
+Slide[@isGroup=NoteConnector] { measureComponentConnector<slideSym> }
+@skip { " " | Tab } {
+    measureComponentConnector<connector> {
+        atomicStringComponent dash*
+        connector
+        stringComponent
+    }
+}
+
+inlineRepeat { "*" delimChar delimChar }
+Multiplier { (x number) | (number x) | (number "times") }
 // ---------------------------------------------------------
-connectorSymb[@export] { slideSym|hammerSym|pullSym }
-Dash{dash}
-@skip { space | Comment }
+@skip { Comment }
+Tab { "\t" }
 @tokens {
-    space { $[ \t] }
     dash { "-" }
     delimChar { $[|:] }
-    num { $[0-9] }
     delim { delimChar delimChar? }
-    newline { "\n" | "\r\n" }
+    newline { "\r"?"\n" }
 
     Comment { "#" ![\n\r]* }
-    
-    fretNum { num num? }
-
     slideSym { $[s/\\] }
     hammerSym { $[hH] }
     pullSym { $[pP] }
-
-
-    Multiplier { $[xX] num }
-    MeasureLineName { $[eE] | $[bB] | $[gG] | $[dD] | $[aA] }
+    
+    x { $[xX] }
+    letter { $[a-zA-Z] }
+    digit { $[0-9] }
 }
 
 @external tokens endOfFile from "./tokens" { eof }
 @external tokens measureComponentExternTokens from "./tokens" { graceSym }
+@external tokens numberToken from "./tokens" { number }
