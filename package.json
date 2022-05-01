@@ -22,7 +22,7 @@
     "rollup": "^2.52.2"
   },
   "dependencies": {
-    "@lezer/lr": "^0.15.8"
+    "@lezer/lr": "^0.16.2"
   },
   "scripts": {
     "build": "lezer-generator src/tablature.grammar -o src/parser && rollup -c",
