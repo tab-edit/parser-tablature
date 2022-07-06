@@ -1,0 +1,52 @@
+# Spacing
+
+a|---|5x?
+a|---|  5x?
+
+==>
+
+Tablature(TabSegment(
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), DividerEnd, Multiplier
+    )),
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), DividerEnd, Multiplier
+    ))
+))
+
+# Times Variations
+
+a|--| 5x?
+a|--| x5?
+a|--| 5 times?
+
+==>
+
+Tablature(TabSegment(
+    TabSegmentLine(TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd, Multiplier)),
+    TabSegmentLine(TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd, Multiplier)),
+    TabSegmentLine(TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd, Multiplier)),
+))
+
+# Sandwitched between TabStrings
+
+a|--| 5 times? b|---|?
+a|--|      5x? b|---|?
+a|--|      x5? b|---|?
+
+==>
+
+Tablature(TabSegment(
+    TabSegmentLine(
+        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd, Multiplier),
+        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd)
+    ),
+    TabSegmentLine(
+        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd, Multiplier),
+        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd)
+    ),
+    TabSegmentLine(
+        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd, Multiplier),
+        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd)
+    ),
+))

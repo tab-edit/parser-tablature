@@ -1,5 +1,6 @@
 @precedence { aggregate @left }
 
+@skip { " " | Tab | Comment }
 @top Tablature {
     (
         ( TabSegment (newline|eof) ) | newline
@@ -10,30 +11,28 @@
 repeatLine {
     Repeat+
 }
-
-TimeSignature[@isGroup=Modifier] {
-    number "/" number
+Repeat[@isGroup=Modifier] {
+    delim dash+
+    repeatText
+    dash+ delim
 }
-
-MeasureLineName {
-    letter (digit | letter)? (digit | letter)?
-}
-
-@skip {" " | Tab} {
-    Repeat[@isGroup=Modifier] {
-        delim dash+
-        "repeat" Multiplier
-        dash+ delim
+@skip {} {
+    repeatText {
+        "repeat" " "+ Multiplier
     }
-    // TODO: do not make TimingLine a rule. instead make a Timing rule for each type of timing so that only the actual modifier tokens are exposed.
-    // also when you make the timing modifier rules, make sure that you add [@isGroup=Modifier]
-    TimingLine {
-        "XQ" "e."+
+    TimeSignature[@isGroup=Modifier] {
+        number "/" number
     }
 }
 
 timeSigLine {
     TimeSignature+
+}
+
+// TODO: do not make TimingLine a rule. instead make a Timing rule for each type of timing so that only the actual modifier tokens are exposed.
+// also when you make the timing modifier rules, make sure that you add [@isGroup=Modifier]
+TimingLine {
+    "XQ" "e."+
 }
 
 TabSegment {
@@ -59,11 +58,9 @@ TabString {
     MeasureLine+
     Multiplier?
 }
-@skip {" " | Tab} {
-    MeasureLine {
-        (dash+ measureLineEnd) |
-        (dash* measureComponent+ measureLineEnd)
-    }
+MeasureLine {
+    (dash+ measureLineEnd) |
+    (dash* measureComponent+ measureLineEnd)
 }
 measureLineEnd {
     inlineRepeat | delim
@@ -73,37 +70,35 @@ measureLineEnd {
 
 // -----Measure components like fret, e.t.c.---------------
 measureComponent { stringComponent } // in the future, "stringComponent | percussionComponent"
-@skip { " " | Tab } {
-    stringComponent {
-        Hammer |
-        Pull |
-        Slide |
-        atomicStringComponent dash*
-    }
+stringComponent {
+    Hammer |
+    Pull |
+    Slide |
+    atomicStringComponent dash*
 }
 
 Fret[@isGroup=Note] { number }
-Harmonic[@isGroup=MeasureComponent] { "[" Fret "]" }
-Grace[@isGroup=MeasureComponent] { graceSym Fret }
+Harmonic[@isGroup=NoteDecorator] { "[" Fret "]" }
+Grace[@isGroup=NoteDecorator] { graceSym Fret }
 atomicStringComponent {
     Fret | Harmonic | Grace
 }
 
-Hammer[@isGroup=NoteConnector] { measureComponentConnector<hammerSym> }
-Pull[@isGroup=NoteConnector] { measureComponentConnector<pullSym> }
-Slide[@isGroup=NoteConnector] { measureComponentConnector<slideSym> }
-@skip { " " | Tab } {
-    measureComponentConnector<connector> {
-        atomicStringComponent dash*
-        connector
-        stringComponent
-    }
+hammerSymbol[@isGroup=ConnectorSymbol] { hammerSym }
+pullSymbol[@isGroup=ConnectorSymbol] { pullSym }
+slideSymbol[@isGroup=ConnectorSymbol] { slideSym }
+Hammer[@isGroup=NoteConnector] { measureComponentConnector<hammerSymbol> }
+Pull[@isGroup=NoteConnector] { measureComponentConnector<pullSymbol> }
+Slide[@isGroup=NoteConnector] { measureComponentConnector<slideSymbol> }
+measureComponentConnector<connector> {
+    atomicStringComponent dash*
+    connector
+    stringComponent
 }
 
 inlineRepeat { "*" delimChar delimChar }
 Multiplier { (x number) | (number x) | (number "times") }
 // ---------------------------------------------------------
-@skip { Comment }
 Tab { "\t" }
 @tokens {
     dash { "-" }
@@ -117,8 +112,7 @@ Tab { "\t" }
     pullSym { $[pP] }
     
     x { $[xX] }
-    letter { $[a-zA-Z] }
-    digit { $[0-9] }
+    MeasureLineName { $[eE] | $[bB] | $[gG] | $[dD] | $[aA] }
 }
 
 @external tokens endOfFile from "./tokens" { eof }

@@ -1,0 +1,44 @@
+# Splits TabSegments
+
+a|--|?
+
+c|--|?
+                     
+d|--|?
+
+==>
+
+Tablature(
+    TabSegment(
+        TabSegmentLine(TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd)),
+    ),
+    TabSegment(
+        TabSegmentLine(TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd))
+    ),
+    TabSegment(
+        TabSegmentLine(TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd))
+    )
+)
+
+# Does not merge TabStrings
+
+a|--|? b|--|?
+c|--|? |--|?
+c|--|? a--|?
+
+==>
+
+Tablature(TabSegment(
+    TabSegmentLine(
+        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd),
+        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd)
+    ),
+    TabSegmentLine(
+        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd),
+        TabString(InsertLineName, MeasureLine(DividerOpen), DividerEnd)
+    ),
+    TabSegmentLine(
+        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd),
+        TabString(MeasureLineName, MeasureLine(InsertDivider), DividerEnd)
+    )
+))

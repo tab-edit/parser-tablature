@@ -1,0 +1,74 @@
+# Measure Line Names
+
+a|-|?    A1a3|--|?
+a123|-|? a12B|-|?
+
+
+==>
+
+Tablature(
+    TabSegment(TabSegmentLine(
+        TabString(
+            MeasureLineName, MeasureLine(DividerOpen), DividerEnd
+        ),
+        TabString(
+            MeasureLineName, MeasureLine(DividerOpen), DividerEnd
+        )
+    ),
+    TabSegmentLine(
+        TabString(
+            MeasureLineName, MeasureLine(DividerOpen), DividerEnd
+        ),
+        TabString(
+            MeasureLineName, MeasureLine(DividerOpen), DividerEnd
+        )
+    )
+))
+
+# Missing line name
+
+|--|?  ||-|?
+||-|?  |--|?
+
+
+==>
+
+Tablature(TabSegment(
+    TabSegmentLine(
+        TabString(
+            InsertLineName, MeasureLine(DividerOpen), DividerEnd
+        ),
+        TabString(
+            InsertLineName, MeasureLine(DividerOpen), DividerEnd
+        )
+    ),
+    TabSegmentLine(
+        TabString(
+            InsertLineName, MeasureLine(DividerOpen), DividerEnd
+        ),
+        TabString(
+            InsertLineName, MeasureLine(DividerOpen), DividerEnd
+        )
+    )
+))
+
+
+# Spacing between name and measureline
+
+a|--|?
+a |--|?
+a   |--|?
+
+==>
+
+Tablature(TabSegment(
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), DividerEnd
+    )),
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), DividerEnd
+    )),
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), DividerEnd
+    ))
+))

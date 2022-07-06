@@ -3,3 +3,4 @@
 .tern-*
 /dist/*
 !/dist/*.d.ts
+package-lock.json

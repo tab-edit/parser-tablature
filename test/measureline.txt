@@ -1,0 +1,48 @@
+# Single Measure Line
+
+a|-|?
+a|--|?
+
+==>
+
+Tablature(TabSegment(
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), DividerEnd
+    )),
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), DividerEnd
+    ))
+))
+
+
+# Multiple Measure Lines
+
+a|--|--|?    b|--|--|-|?
+b|--|--|?
+
+==>
+
+Tablature(TabSegment(
+    TabSegmentLine(
+        TabString(
+            MeasureLineName, MeasureLine(DividerOpen), MeasureLine(DividerOpen), DividerEnd
+        ),
+        TabString(
+            MeasureLineName, MeasureLine(DividerOpen), MeasureLine(DividerOpen), MeasureLine(DividerOpen), DividerEnd
+        )
+    ),
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), MeasureLine(DividerOpen), DividerEnd
+    ))
+))
+
+# Spacing within measureline
+
+a| -- |- --|- - | - -|---|?
+
+==>
+
+Tablature(TabSegment(TabSegmentLine(TabString(
+    MeasureLineName, MeasureLine(DividerOpen), MeasureLine(DividerOpen), MeasureLine(DividerOpen), MeasureLine(DividerOpen), MeasureLine(DividerOpen), DividerEnd
+))))
+

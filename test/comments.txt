@@ -1,0 +1,23 @@
+# trailing whitespace and comments
+
+a|--| #hoidnf
+b|--|         
+c|--| # dji
+            
+#hoidnf
+        
+d|--|
+
+==>
+
+Tablature(
+    TabSegment(
+        TabSegmentLine(TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd)), Comment
+        TabSegmentLine(TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd))
+        TabSegmentLine(TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd)), Comment
+    ),
+    Comment,
+    TabSegment(
+        TabSegmentLine(TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd))
+    )
+)

@@ -1,0 +1,38 @@
+# Missing dividers
+
+a--|? a--|? 
+
+==>
+
+Tablature(TabSegment(TabSegmentLine(
+    TabString(
+        MeasureLineName, MeasureLine(InsertDivider), DividerEnd
+    ),
+    TabString(
+        MeasureLineName, MeasureLine(InsertDivider), DividerEnd
+    )
+)))
+
+# varying thinkness dividers
+
+a|----|?
+b||---|?
+c|---||?
+d||--||?
+
+==>
+
+Tablature(TabSegment(
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), DividerEnd
+    )),
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), DividerEnd
+    )),
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), DividerEnd
+    )),
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), DividerEnd
+    ))
+))

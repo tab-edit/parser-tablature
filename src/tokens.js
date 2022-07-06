@@ -1,26 +1,20 @@
 import { ExternalTokenizer } from "@lezer/lr";
-import { eof, graceSym, number } from "./parser.terms.js";
+import { eof, insertLineName, insertDivider } from "./parser.terms";
 
-const g = 103,
-  G = 71;
+const newline = 10, carriageReturn = 13, space = 32, tab = 9, hash = 35, parenOpen = 40, dot = 46, pipe = 124, dash = 45;
 
-export const endOfFile = new ExternalTokenizer((input) => {
-  if (input.next < 0) input.acceptToken(eof);
-});
-
-export const measureComponentExternTokens = new ExternalTokenizer((input, stack) => {
-  if (input.next == g || input.next == G) {
-    input.advance();
-    if (isDigit(input.next) && stack.canShift(graceSym)) input.acceptToken(graceSym);
+export const endOfFile = new ExternalTokenizer((input, stack) => {
+  if (input.next < 0) {
+    input.acceptToken(eof);
   }
-}, {fallback: true});
+})
 
-export const numberToken = new ExternalTokenizer((input, stack) => {
-  let hasDigit = isDigit(input.next);
-  while (isDigit(input.next)) input.advance();
-  if (hasDigit && stack.canShift(number)) input.acceptToken(number);
-}, {fallback: true})
-
-function isDigit(charCode) {
-  return charCode >= 48 && charCode <= 57;
-}
+export const insertions = new ExternalTokenizer((input, stack) => {
+  let {next} = input;
+  if (next == pipe && stack.canShift(insertLineName)) {
+    input.acceptToken(insertLineName);
+  }
+  if (next == dash && stack.canShift(insertDivider)) {
+    input.acceptToken(insertDivider);
+  }
+}, {contextual: true, fallback: true})

@@ -28,6 +28,7 @@
     "test": "mocha test/test-*.js"
   },
   "dependencies": {
+    "@lezer/highlight": "^1.0.0",
     "@lezer/lr": "^0.16.2"
   }
 }
