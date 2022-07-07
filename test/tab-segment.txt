@@ -24,6 +24,7 @@ Tablature(
 
 a|--| b|--|
 c|--|  |--|
+c|--|||--|
 
 c|--|    a--|
 c|--| 5x a--|
@@ -35,7 +36,11 @@ Tablature(
     TabSegment(
         TabSegmentLine(
             TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd),
-            TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd)
+            TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd),
+        ),
+        TabSegmentLine(
+            TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd),
+            TabString(InsertLineName, MeasureLine(DividerOpen), DividerEnd)
         ),
         TabSegmentLine(
             TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd),

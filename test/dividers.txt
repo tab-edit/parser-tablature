@@ -1,7 +1,7 @@
 # Missing dividers
 
 a--|
-a7s3--|
+a3--|
 
 ==>
 
@@ -11,8 +11,8 @@ Tablature(TabSegment(
     )),
     TabSegmentLine(TabString(
         MeasureLineName, MeasureLine(InsertDivider), DividerEnd
-    )
-)))
+    ))
+))
 
 # Varying divider thickness
 

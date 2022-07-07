@@ -31,7 +31,15 @@ measureLineNoDivider[@name=MeasureLine] {
     measurelineContent
 }
 measurelineContent {
+    stringedLineContent |
+    percussionLineContent
+}
+
+stringedLineContent {
     "-"+
+}
+percussionLineContent {
+    "-"
 }
 
 // Line names
@@ -61,6 +69,8 @@ Multiplier { (timesSymb number) | (number timesSymb) | (number timesWord) }
     InlineRepeatMarking { "*" }
     timesSymb { $[xX] }
     timesWord { $[Tt] $[Ii] $[Mm] $[Ee] $[Ss]}
+
+    openDecorator { $[gG\[\(] }
 }
 
 @external tokens endOfFile from "./tokens" { eof }
