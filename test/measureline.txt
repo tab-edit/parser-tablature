@@ -1,7 +1,7 @@
 # Single Measure Line
 
-a|-|?
-a|--|?
+a|-|
+a|--|
 
 ==>
 
@@ -17,28 +17,27 @@ Tablature(TabSegment(
 
 # Multiple Measure Lines
 
-a|--|--|?    b|--|--|-|?
-b|--|--|?
+a|--|--|
+b|--|--|-|
+c|--|--|
 
 ==>
 
 Tablature(TabSegment(
-    TabSegmentLine(
-        TabString(
-            MeasureLineName, MeasureLine(DividerOpen), MeasureLine(DividerOpen), DividerEnd
-        ),
-        TabString(
-            MeasureLineName, MeasureLine(DividerOpen), MeasureLine(DividerOpen), MeasureLine(DividerOpen), DividerEnd
-        )
-    ),
     TabSegmentLine(TabString(
         MeasureLineName, MeasureLine(DividerOpen), MeasureLine(DividerOpen), DividerEnd
-    ))
+    )),
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), MeasureLine(DividerOpen), MeasureLine(DividerOpen), DividerEnd
+    )),
+    TabSegmentLine(TabString(
+        MeasureLineName, MeasureLine(DividerOpen), MeasureLine(DividerOpen), DividerEnd
+    )),
 ))
 
 # Spacing within measureline
 
-a| -- |- --|- - | - -|---|?
+a| -- |- --|- - | - -|---|
 
 ==>
 

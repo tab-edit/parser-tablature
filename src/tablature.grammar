@@ -2,14 +2,9 @@
     @top Tablature {
         (( TabSegment (newline|eof) ) | newline)+
     }
-
     TabSegment {
         (TabSegmentLine (newline|eof))+
     }
-    /**
-    TODO: this needs to be (TabString space)* TabString but we skip spaces.
-    we would need an external tokenizer to enforce this space
-    */
     TabSegmentLine { TabString+ }
 }
 
@@ -23,7 +18,7 @@ TabString {
     MeasureLine*
     DividerEnd
     Multiplier?
-    "?"
+    tabStringBreak
 }
 
 // Measure Lines
@@ -47,7 +42,6 @@ InsertLineName[@isGroup=LineName] { insertLineName }
 InsertDivider[@isGroup=Divider] { insertDivider }
 DividerOpen[@isGroup=Divider, closedBy=divider] { divider }
 DividerEnd[@isGroup=Divider] { divider }
-divider { "|" "|"? }
 
 
 Multiplier { (timesSymb number) | (number timesSymb) | (number timesWord) }
@@ -63,9 +57,12 @@ Multiplier { (timesSymb number) | (number timesSymb) | (number timesWord) }
 
     measureLineNameToken { letter (letter|digit)? (letter|digit)? (letter|digit)? }
 
+    divider { "|" "|"? }
+    InlineRepeatMarking { "*" }
     timesSymb { $[xX] }
     timesWord { $[Tt] $[Ii] $[Mm] $[Ee] $[Ss]}
 }
 
 @external tokens endOfFile from "./tokens" { eof }
 @external tokens insertions from "./tokens" { insertLineName, insertDivider }
+@external tokens tabStringBreak from "./tokens" { tabStringBreak }

@@ -18,3 +18,7 @@ we use lookahead to distinguish connector from component. that way, we can gave 
 on second thought, maybe not the best idea, because then we can't have leading connector right before a note if it can be misinterpreted as a component.
 
 e.g. these two would be inconsistent even though they should be the same: |--7-g5| and |--7-g-5|. g is a component in one and a connector in the other. not consistent.
+
+
+Doccumentation notes:
+if you have measureline names, you can omit the initial dividers for the first measure line.

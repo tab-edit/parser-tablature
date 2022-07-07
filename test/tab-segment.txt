@@ -1,10 +1,10 @@
-# Splits TabSegments
+# Separates TabSegments
 
-a|--|?
+a|--|
 
-c|--|?
+c|--|
                      
-d|--|?
+d|--|
 
 ==>
 
@@ -20,25 +20,40 @@ Tablature(
     )
 )
 
-# Does not merge TabStrings
+# TabString break
 
-a|--|? b|--|?
-c|--|? |--|?
-c|--|? a--|?
+a|--| b|--|
+c|--|  |--|
+
+c|--|    a--|
+c|--| 5x a--|
+c|--| x5 a--|
 
 ==>
 
-Tablature(TabSegment(
-    TabSegmentLine(
-        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd),
-        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd)
+Tablature(
+    TabSegment(
+        TabSegmentLine(
+            TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd),
+            TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd)
+        ),
+        TabSegmentLine(
+            TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd),
+            TabString(InsertLineName, MeasureLine(DividerOpen), DividerEnd)
+        )
     ),
-    TabSegmentLine(
-        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd),
-        TabString(InsertLineName, MeasureLine(DividerOpen), DividerEnd)
-    ),
-    TabSegmentLine(
-        TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd),
-        TabString(MeasureLineName, MeasureLine(InsertDivider), DividerEnd)
+    TabSegment(
+        TabSegmentLine(
+            TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd),
+            TabString(MeasureLineName, MeasureLine(InsertDivider), DividerEnd)
+        ),
+        TabSegmentLine(
+            TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd, Multiplier),
+            TabString(MeasureLineName, MeasureLine(InsertDivider), DividerEnd)
+        ),
+        TabSegmentLine(
+            TabString(MeasureLineName, MeasureLine(DividerOpen), DividerEnd, Multiplier),
+            TabString(MeasureLineName, MeasureLine(InsertDivider), DividerEnd)
+        )
     )
-))
+)

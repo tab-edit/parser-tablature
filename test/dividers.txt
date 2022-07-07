@@ -1,24 +1,25 @@
 # Missing dividers
 
-a--|? a--|? 
+a--|
+a7s3--|
 
 ==>
 
-Tablature(TabSegment(TabSegmentLine(
-    TabString(
+Tablature(TabSegment(
+    TabSegmentLine(TabString(
         MeasureLineName, MeasureLine(InsertDivider), DividerEnd
-    ),
-    TabString(
+    )),
+    TabSegmentLine(TabString(
         MeasureLineName, MeasureLine(InsertDivider), DividerEnd
     )
 )))
 
-# varying thinkness dividers
+# Varying divider thickness
 
-a|----|?
-b||---|?
-c|---||?
-d||--||?
+a|----|
+b||---|
+c|---||
+d||--||
 
 ==>
 
