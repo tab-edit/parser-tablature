@@ -21,7 +21,7 @@ export const insertions = new ExternalTokenizer((input, stack) => {
 
 export const tabStringBreak = new ExternalTokenizer((input, stack) => {
   if (!stack.canShift(tsBreak)) return;
-  if (input.next < 0 || input.next == newline || input.next == carriageReturn) {
+  if (input.next < 0 || input.next == newline || input.next == carriageReturn || input.next == pipe) {
     input.acceptToken(tsBreak);
   } else {
     let spaces = input.peek(-1)==space || input.peek(-1)==tab ? 1 : 0;
