@@ -67,7 +67,9 @@ Our two main problems to overcome in this project are:
 
 Another problem is that the tab-state is generated for the whole document and in some scenarios only produces a valid output when the whole document syntax tree is explored (e.g. for xml-gen, not for linting). more importantly, they also have to completely re-generate after every edit.
 - maybe we can make it so that the state is "checkpointed" at the end of every tab fragment. then when a re-parse is triggered, we only start at the recently-updated fragment. 
-    - This will not work for cases where we have a global state though, like xml-gen, but it might work and speed things up for linting.
+    - This will not work perfectly for cases where we have a global state though, like xml-gen (cuz we have to regenerate everything from the first changed fragment), but it might work and speed things up a lot for linting.
+    - maybe we can differentiate between global states and fragment-scoped states that it is ok for them to be reset at every fragment start. that way we only have to re-generate global states, but fragment-scoped states are cached in their fragments.
+        - global states may depend on fragment-scoped states though, and because of the procedural way the state is generated (with no preservation of intermediate states), we may need to re-generate a number of fragment-scoped states in order to compute the global state values.
 
 # Documentation notes:
 if you have a measure line name for a tab string, you can omit the initial divider for the first measure line in the tab string.
